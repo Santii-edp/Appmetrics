@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido - Seguros Bolívar</title>
+    <style>
+          /* Colores corporativos */
+          :root {
+            --primary-green: #008948;
+            --light-green: #badc73;
+            --white: #ffffff;
+        }
+
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos del navbar */
+        .navbar {
+            position: relative;
+            height: 60px;
+            background: var(--light-green);
+            overflow: hidden;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 100%;
+        }
+
+        .navbar::before {
+            box-shadow: 2px 0px 10px black ;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35%;
+            height: 100%;
+            background: var(--primary-green);
+            border-radius: 0 0 95% 2%;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            height: 40px;
+            margin-left: 20px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .ingresa-text {
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .ingresa-text {
+            font-size: 1.2rem;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* Estilos del contenido principal */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .appmetrics-logo {
+            width: 150px;
+            height: 150px;
+            background-color: #D3D3D3;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .appmetrics-logo img {
+            width: 80%;
+            height: auto;
+        }
+
+        .welcome-text {
+            color: var(--primary-green);
+            font-size: 2.5rem;
+            margin: 1rem 0;
+        }
+
+        .login-button {
+            padding: 0.5rem 2rem;
+            background-color: var(--white);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Estilos del footer */
+        .footer {
+            background-color: var(--primary-green);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .copyright {
+            color: var(--white);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .footer-logos {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navlog">
+        <img src="logo-bolivar.png" alt="Seguros Bolívar" class="logo">
+        </div>
+        <div class="nav-right">
+            <span class="ingresa-text">¡INGRESA!</span>
+            <a href="#" aria-label="Login">👤</a>
+            <a href="#" aria-label="Help">?</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="appmetrics-logo">
+            <img src="" alt="AppMetrics Logo">
+        </div>
+        <h1 class="welcome-text">Bienvenido</h1>
+        <button class="login-button">INICIA SESIÓN</button>
+    </main>
+
+    <footer class="footer">
+        <p class="copyright">Grupo Bolivar S.A. Todos los derechos reservados</p>
+        <div class="footer-logos">
+            <img src="appmetrics-logo.png" alt="AppMetrics" class="footer-logo">
+            <img src="logo-bolivar.png" alt="Seguros Bolívar" class="footer-logo">
+        </div>
+    </footer>
+</body>
+</html>
