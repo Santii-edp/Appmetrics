@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido - Seguros Bolívar</title>
     <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet"> <!-- Incluye Boxicons -->
-    <!-- Add Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
             --black-text:#313131;
@@ -20,7 +16,6 @@
             --yellow-primary: #c0c23d;
             
         }
-
         /* Estilos generales */
         body {
             margin: 0;
@@ -32,6 +27,7 @@
             background-color: var(--white);
         }
 
+
         .logo-container {
             position: flex;
             z-index: 1;
@@ -42,6 +38,17 @@
         }
 
         /* Estilos del navbar */
+        .sidebar::after {
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 173%;
+            height: 21%;
+            background: var(--primary-green);
+            border-radius: 0 0 101% 0;
+        }
         .navbar {
             background: var(--light-green);
             padding: 0.5rem 2rem;
@@ -50,7 +57,6 @@
             align-items: center;
             position: relative;
         }
-        /* adornos en nav y sidebar */
 
         .navbar::before {
             box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
@@ -62,17 +68,6 @@
             height: 130%;
             background: var(--primary-green);
             border-radius: 0 0 100% 0;
-        }
-        .sidebar::after {
-            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 173%;
-            height: 21%;
-            background: var(--primary-green);
-            border-radius: 0 0 101% 0;
         }
 
         .nav-right {
@@ -214,40 +209,8 @@
             width: 80%;
             height: auto;
         }
-        .filters-section {
-        background-color: #f8f9fa;
-        padding: 1rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-    }
-    
-    .table-container {
-        background-color: white;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .table thead th {
-        background-color: #008948;
-        color: white;
-        cursor: pointer;
-    }
-
-    .pagination .page-item.active .page-link {
-        background-color: #008948;
-        border-color: #008948;
-    }
-
-    .page-link {
-        color: #008948;
-    }
-
-    .search-bar {
-        max-width: 300px;
-    }
-    /* nav-sidebar */
-    nav .logo2{
+        /* nav-sidebar */
+        nav .logo2{
             position: relative;
             display:flex;
             align-items: center;
@@ -350,44 +313,6 @@
         
         
         }
-        /* paginacion */
-        /* Estilos de la paginación */
-#pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.page-item {
-    margin: 0 5px;
-}
-
-.page-item a {
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #007bff;
-    border: 1px solid #ddd;
-}
-
-.page-item.active a {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-
-.page-item.disabled a {
-    color: #6c757d;
-    border-color: #ddd;
-    pointer-events: none;
-}
-
-.page-item a:hover {
-    background-color: #f0f0f0;
-}
-
     </style>
 </head>
 <body>
@@ -468,208 +393,22 @@
                 navBar.classList.remove("open");
             });
      
+    
+    
         </script>
     </nav>
+    <section class="overlay"></section>
 
-        <main class="main-container">
-            <div class="welcome-header">
-                <h2>Cartas Descriptivas</h2>
-            </div>
+    <main class="main-container">
+        <div class="welcome-header">
+            <h2>¿Como Funciona? </h2>
+        </div>
 
-            
-                <div class="Tabla-contenido">
-                    <div class="filters-section">
-                        <div class="row g-3 align-items-center">
-
-                            <div class="col-auto">
-                                <select class="form-select">
-                                    <option selected>Filtrar por tipo</option>
-                                    <option>Viceprecidencia</option>
-                                    <option>Gerencia</option>
-                                    <option>Cargo</option>
-                                </select>
-                            </div>
-                            <div class="col-auto">
-                                <select class="form-select">
-                                    <option selected>Estado</option>
-                                    <option>actualizado</option>
-                                    <option>desactualizado</option>
-                                </select>
-                            </div>
-                            <div class="col-auto">
-                                <input type="date" class="form-control" id="fecha" required>
-                            </div>
-                            <div class="col-auto">
-                                <div class="input-group search-bar">
-                                    <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
-                                    <button id="searchButton" class="btn btn-success">
-                                        <i class="bi bi-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            
-                        </div>
-                    </div>
-                
-                    <div class="table-container">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Cod Saghi</th>
-                                    <th scope="col">Gerencia</th>
-                                    <th scope="col">Vicepresidencia</th>
-                                    <th scope="col">Cargo específico</th>
-                                    <th scope="col">Estado</th>
-                                    <th scope="col">Fecha actualización</th>
-                                    <th scope="col">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <!-- Los datos se insertarán aquí -->
-                            </tbody>
-                        </table>
-                    
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination justify-content-center" id="pagination">
-                                <!-- La paginación se MUESTRA AQUI -->
-                            </ul>
-                        </nav>
-<script>
-    let currentPage = 1;
-    const rowsPerPage = 12;
-    const maxPagesToShow = 10;
-    let allData = [];
-
-    function loadData() {
-        google.script.run
-            .withSuccessHandler(processData)
-            .withFailureHandler(handleError)
-            .getData();
-    }
-
-    document.getElementById('searchButton').addEventListener('click', performSearch);
-
-    function performSearch() {
-        const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
-        const filteredData = allData.filter(row => {
-            return row.some(cell => String(cell || '').toLowerCase().includes(searchInput));
-        });
-
-        updatePagination(filteredData);
-        displayPage(1, filteredData);
-    }
-
-    function updatePagination(data) {
-        const totalPages = Math.ceil(data.length / rowsPerPage);
-        const pagination = document.getElementById('pagination');
-        pagination.innerHTML = '';
-
-        // Botón Anterior
-        pagination.innerHTML += `
-            <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="displayPage(${currentPage - 1}); return false;">Anterior</a>
-            </li>
-        `;
-
-        const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-        const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-
-        // Páginas numeradas
-        for (let i = startPage; i <= endPage; i++) {
-            pagination.innerHTML += `
-                <li class="page-item ${currentPage === i ? 'active' : ''}">
-                    <a class="page-link" href="#" onclick="displayPage(${i}); return false;">${i}</a>
-                </li>
-            `;
-        }
-
-        // Botón Siguiente
-        pagination.innerHTML += `
-            <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="#" onclick="displayPage(${currentPage + 1}); return false;">Siguiente</a>
-            </li>
-        `;
-    }
-
-    function displayPage(pageNumber, data = allData) {
-        currentPage = pageNumber;
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = '';
-
-        const start = (pageNumber - 1) * rowsPerPage;
-        const end = Math.min(start + rowsPerPage, data.length);
-
-        for (let i = start; i < end; i++) {
-            const row = data[i];
-            const tr = document.createElement('tr');
-
-            tr.innerHTML = `
-                <td>${row[7] || ''}</td>
-                <td>${row[1] || ''}</td>
-                <td>${row[0] || ''}</td>
-                <td>${row[2] || ''}</td>
-                <td>
-                    <span class="badge ${isActualizado(row[5]) ? 'bg-success' : 'bg-danger'}">
-                        ${isActualizado(row[5]) ? 'Actualizado' : 'Desactualizado'}
-                    </span>
-                </td>
-                <td>${row[5] || ''}</td>
-                <td>
-                    <a href="${row[4] || '#'}" target="_blank" class="btn btn-sm btn-outline-primary">
-                        <i class="bi bi-eye"></i>
-                    </a>
-                    <button class="btn btn-sm btn-outline-secondary">
-                        <i class="bx bx-archive-in"></i>
-                    </button>
-                </td>
-            `;
-
-            tableBody.appendChild(tr);
-        }
-
-        updatePagination(data);
-    }
-
-    function isActualizado(fecha) {
-        if (!fecha) return false;
-        const fechaActualizacion = new Date(fecha);
-        const ahora = new Date();
-        const diferenciaMeses = (ahora - fechaActualizacion) / (1000 * 60 * 60 * 24 * 30);
-        return diferenciaMeses <= 36; // Ajustar el rango de meses aquí
-    }
-
-    function processData(sections) {
-        allData = [];
-        sections.forEach(section => {
-            section.data.forEach((row, index) => {
-                if (index === 0) return; // Saltar la fila de encabezados
-                allData.push(row);
-            });
-        });
-        updatePagination(allData);
-        displayPage(1, allData);
-    }
-
-    function handleError(error) {
-        console.error('Error:', error);
-        document.getElementById('tableBody').innerHTML = `
-            <tr>
-                <td colspan="7" class="text-center text-secondary">
-                    Error al cargar los datos: ${error.toString()}
-                </td>
-            </tr>
-        `;
-    }
-
-    window.onload = loadData;
-</script>
+        <div class="options-grid">
 
 
-                    </div>
-                </div>
-            
-        </main>
+        </div>
+    </main>
 
     <footer class="footer">
         <p class="copyright">Grupo Bolivar S.A. Todos los derechos reservados</p>
@@ -679,8 +418,4 @@
         </div>
     </footer>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
 </html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+        font-size: 14px;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 300px;
+      }
+      td.wrap-text {
+        white-space: normal;
+      }
+      th {
+        background-color: #1a237e;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+      tr:hover {
+        background-color: #ddd;
+      }
+      .link {
+        color: blue;
+        text-decoration: underline;
+      }
+      .loading {
+        text-align: center;
+        padding: 20px;
+        font-size: 18px;
+      }
+      .error {
+        color: red;
+        padding: 20px;
+        border: 1px solid red;
+        border-radius: 4px;
+        margin: 20px 0;
+      }
+      .refresh-button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .container {
+        width: 100%;
+        overflow-x: auto;
+      }
+      .toggle-wrap {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="loadData()" class="refresh-button">Actualizar datos</button>
+    <div class="toggle-wrap">
+      <label>
+        <input type="checkbox" onchange="toggleWordWrap(this.checked)"> Permitir ajuste de texto
+      </label>
+    </div>
+    <div class="container">
+      <div id="data" class="loading">Cargando datos...</div>
+    </div>
+    
+    <script>
+      function loadData() {
+        document.getElementById('data').innerHTML = 'Cargando datos...';
+        google.script.run
+          .withSuccessHandler(createTable)
+          .withFailureHandler(handleError)
+          .getData();
+      }
+      
+      function handleError(error) {
+        document.getElementById('data').innerHTML = 
+          '<div class="error">' +
+          '<strong>Error al cargar los datos:</strong><br>' +
+          error.toString() +
+          '</div>';
+      }
+      
+      function toggleWordWrap(enabled) {
+        const cells = document.getElementsByTagName('td');
+        for (let cell of cells) {
+          if (enabled) {
+            cell.classList.add('wrap-text');
+          } else {
+            cell.classList.remove('wrap-text');
+          }
+        }
+      }
+      
+      function createTable(data) {
+        if (!data || data.length === 0) {
+          document.getElementById('data').innerHTML = 
+            '<div class="error">No se encontraron datos en la hoja.</div>';
+          return;
+        }
+        
+        var table = '<table>';
+        
+        // Crear encabezados
+        table += '<tr>';
+        data[0].forEach(function(header) {
+          table += '<th>' + (header || 'Sin título') + '</th>';
+        });
+        table += '</tr>';
+        
+        // Crear filas de datos
+        for(var i = 1; i < data.length; i++) {
+          table += '<tr>';
+          data[i].forEach(function(cell) {
+            if (cell && cell.toString().toLowerCase().startsWith('http')) {
+              table += '<td><a href="' + cell + '" class="link" target="_blank">Ver documento</a></td>';
+            } else {
+              table += '<td>' + (cell || '') + '</td>';
+            }
+          });
+          table += '</tr>';
+        }
+        
+        table += '</table>';
+        document.getElementById('data').innerHTML = table;
+      }
+      
+      // Cargar datos cuando la página se carga
+      window.onload = loadData;
+    </script>
+  </body>
+</html>

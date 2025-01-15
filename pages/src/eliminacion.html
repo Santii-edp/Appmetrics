@@ -10,12 +10,15 @@
     <!-- Add Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        /* Colores corporativos */
         :root {
-            --primary-green: #008948;
+            --black-text:#313131;
+            --Green-text:#02310a;
+            --primary-green: #008c45;
             --light-green: #9DC45F;
             --white: #ffffff;
             --gray-light: #f4f4f4;
+            --yellow-primary: #c0c23d;
+            
         }
 
         /* Estilos generales */
@@ -29,12 +32,12 @@
             background-color: var(--white);
         }
 
+
         .logo-container {
             position: flex;
             z-index: 1;
             width: 230px;
             height: 60px;
-            background: url('https://i.ibb.co/5cWD2Fw/image.png') no-repeat;
             background-size: contain;
             background-position: center;
         }
@@ -48,6 +51,7 @@
             align-items: center;
             position: relative;
         }
+        /* adornos en nav y sidebar */
 
         .navbar::before {
             box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
@@ -55,12 +59,23 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 30%;
-            height: 135%;
+            width: 33%;
+            height: 130%;
             background: var(--primary-green);
             border-radius: 0 0 100% 0;
         }
-
+        .sidebar::after {
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 173%;
+            height: 21%;
+            background: var(--primary-green);
+            border-radius: 0 0 101% 0;
+        }
+        /*  */
         .nav-right {
             display: flex;
             align-items: center;
@@ -230,33 +245,201 @@
     }
 
     .search-bar {
-        max-width: 300px;
+        max-width: 3
+        00px;
     }
+    /* nav-sidebar */
+    nav .logo2{
+            position: relative;
+            display:flex;
+            align-items: center;
+            margin: 10px 27px;
+        }
+        nav .logo{
+            position: relative;
+            display:flex;
+            align-items: center;
+            margin: 2px 24px;
+        }
+        .logo .menu-icon,
+        .logo2 .menu-icon,
+        .logo .cart-icon {
+            color: var(--yellow-primary);/*color del logo obvio*/
+            font-size: 30px;/*modifica el tamaño del logo*/
+            margin-right: 23px;/* separa al logo del titulo*/
+            cursor:pointer;/*cuando se acerque el cursor al logo o icono sale el pointer*/
+        
+        }
+        
+        .logo .logoname,
+        .logo2 .logoname{
+            color:rgb(9, 9, 54);
+            font-size: 24px;/*tamaño titulo*/
+            font-weight: 0;/*separa supongo*/
+        }
+        
+        nav .sidebar{
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 100%;
+            width: 260px;
+            padding: 20px 0;
+            background-color:var(--light-green);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);/*sombras al navbar*/
+            transition: all 0.5s ease;
+            z-index: 1;
+        
+        
+        }
+        nav.open .sidebar{
+            left:0;
+        }
+        .sidebar .sidebar-content,
+         .sidebar-cart .sidebar-content{
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 10px; /*da espacio en el div a lo largo y anche a los iconos de la lista por el sidebar*/
+        
+         }
+         .sidebar-content .list{
+            list-style: none;
+         }
+         .list .nav-link{
+            display: flex;
+            align-items: center;
+            margin-top: 17px;
+            padding: 18px 20px;
+            border-radius: 8px;/*redondear brodes*/
+            background-color: transparent;
+            text-decoration: none;/*quita decoraciones del texto por el link*/
+         }
+         .lists .nav-link:hover{
+            background-color: var(--primary-green);
+         }
+         .lists .nav-link .icon{
+            margin-right: 10px;
+            color: var(--Green-text);
+            font-weight: 400;
+         }
+     
+        .lists .nav-link .link{
+            font-size: 16px;
+            color: var(--Green-text);
+            font-weight: 400;
+        }
+        .lists .nav-link:hover .icon,
+        .lists .nav-link:hover .link {
+            color:var(--gray-light);
+         }
+         .overlay{
+            position: fixed;
+            top: 0;
+            left: -100%;
+            height: 1000vh;
+            width: 200%;
+            opacity: 0;
+            background: rgb(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        nav.open .sidebar ~ .overlay{
+            left: 260px;
+            opacity: 1;
+            pointer-events: auto;
+        
+        
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo-container">
-            <a href="index1.html">
+
+        <div class="logo-container logo2">
+            <i class="bx bx-menu menu-icon"></i>
+            <a href="/pages/src/index1.html">
                 <img class="logo-container" src="https://i.ibb.co/5cWD2Fw/image.png" alt="Logo de Seguros Bolívar">
             </a>
         </div>
-        <div>
-            <a href="#" aria-label="Login"><button class="nav-button">opcion</button></a>
-            <a href="help.html" aria-label="Help"><button class="nav-button">opcion</button></a>
-            <a href="#" aria-label="Login"><button class="nav-button">opcion</button></a>
-            <a href="help.html" aria-label="Help"><button class="nav-button">opcion</button></a>
+        <!-- <div>
+            <a href="#" aria-label="Login"><button class="nav-button">Home</button></a>
+            <a href="help.html" aria-label="Help"><button class="nav-button">Bandeja</button></a>
+            <a href="#" aria-label="Login"><button class="nav-button">opciones</button></a>
 
-        </div>
+        </div> -->
         <div class="nav-right">
-            <span>Usuario</span> <a href="bienvenido.html" aria-label="Login"><button class="nav-button"><i class="bx bx-user"></i></button></a>
+            <span href="">Usuario</span>
+            <a href="#" aria-label="Login"><button class="nav-button"><i class="bx bx-user"></i></button></a>
             <a href="help.html" aria-label="Help"><button class="nav-button"><i class="bx bx-question-mark"></i></button></a>
         </div>
+        <!-- MENU HAMBUERGUESA -->
+        <div class="sidebar">
+            <div class="logo-container logo2">
+                <i class='bx bx-menu menu-icon'></i>
+                <img class="logo-container" src="https://i.ibb.co/5cWD2Fw/image.png" alt="Logo de Seguros Bolívar">
+            </div>
+
+            <div class="sidebar-content">
+                <ul class="lists">
+                    <li class="list">
+                        <a href="index1.html" class="nav-link">
+                            <i class='bx bx-home-alt icon'>
+                                <span class="link">Home</span>
+                            </i>
+                        </a>
+                    </li>
+                    
+                    <li class="list">
+                        <a href="cuenta.html" class="nav-link"  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class='bx bx-user-circle  icon'>                        
+                            <span class="link">Cuenta</span>
+                            </i>
+                        </a>
+                           
+                    </li>
+                    <li class="list">
+                        <a href="help.html" class="nav-link">
+                            <i class='bx bx-store icon' ></i>                                    
+                                <span class="link">Ayuda</span>
+                            </i>
+                        </a>
+                    </li>
+                    <li class="list">
+                        <a href="notificaciones.html" class="nav-link">
+                            <i class='bx bx-bell icon' ></i>                                    
+                                <span class="link">Notificaciones</span>
+                            </i>
+                        </a>
+                    </li>                        
+
+                </ul>
+            </div>
+        </div>
+        <script>
+            const navBar = document.querySelector("nav")
+            menuBtns = document.querySelectorAll(".menu-icon")
+            overlay = document.querySelector(".overlay")
+    
+            menuBtns.forEach((menuBtn) => {
+                menuBtn.addEventListener("click", () => {
+                    navBar.classList.toggle("open");
+                });   
+            });
+    
+            overlay.addEventLitener("click",() => {
+                navBar.classList.remove("open");
+            });
+     
+    
+    
+        </script>
     </nav>
 
     <main class="main-container">
         <div class="welcome-header">
-            <h2>Menu de Historicos</h2>
+            <h2>Cartas Descriptivas Disponibles</h2>
         </div>
 
         
@@ -272,9 +455,9 @@
                         <div class="col-auto">
                             <select class="form-select">
                                 <option selected>Filtrar por tipo</option>
-                                <option>Opción 1</option>
-                                <option>Opción 2</option>
-                                <option>Opción 3</option>
+                                <option>Viceprecidencia</option>
+                                <option>Gerencia</option>
+                                <option>Cargo</option>
                             </select>
                         </div>
                         <div class="col-auto">
@@ -282,7 +465,6 @@
                                 <option selected>Estado</option>
                                 <option>actualizado</option>
                                 <option>desactualizado</option>
-                                <option>inhabilitado</option>
                             </select>
                         </div>
                         <div class="col-auto">
@@ -300,41 +482,58 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Cargo Id</th>
-                                <th scope="col">gerencia <i class="bi bi-arrow-down"></i></th>
-                                <th scope="col">viceprecidencia</th>
+                                <th scope="col">Cod Saghi</th>
+                                <th scope="col">Gerencia <i ></i></th>
+                                <th scope="col">Viceprecidencia</th>
+                                <th scope="col">Cargo especifico</th>
+                                <th scope="col">DC</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Fecha</th>
+                                <th scope="col">Fecha actualizacion</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Sample data rows -->
                             <tr>
                                 <th scope="row">7777</th>
                                 <td>Gerencia A</td>
                                 <td>viceprecidencia A</td>
+                                <td>Cargo A</td>
+                                <td>DC A</td>
                                 <td><span class="badge bg-success">Actualizada</span></td>
                                 <td>2024-01-08</td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
                                     <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
-                            <!-- Add more rows as needed -->
                             <tr>
-                                <th scope="row">7BB7</th>
-                                <td>Gerencia b</td>
-                                <td>viceprecidencia b</td>
-                                <td><span class="badge bg-danger">Desactualizada</span></td>
-                                <td>2023-01-08</td>
+                                <th scope="row">777</th>
+                                <td>Gerencia B</td>
+                                <td>viceprecidencia B</td>
+                                <td>Cargo B</td>
+                                <td>DC B</td>
+                                <td><span class="badge bg-success">Actualizada</span></td>
+                                <td>2024-01-08</td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button>
                                     <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
+                            <tr>
+                                <th scope="row">7667</th>
+                                <td>Gerencia C</td>
+                                <td>viceprecidencia C</td>
+                                <td>Cargo C</td>
+                                <td>DC C</td>
+                                <td><span class="badge bg-danger">desactualizada</span></td>
+                                <td>2024-01-08</td>
+                                <td>
+                                   
+                                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"> <!--  AQUI IRA EL URL PARA VER LA CARTA DESCRIPTIVA--></i></button>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"> <!--  FUNCION PARA TRASLADAR EL ARCHIVO A OTRA CARPETA--></i></button>
+                                </td>
+                            </tr>
+                            
                             
                         </tbody>
                     </table>
@@ -365,6 +564,7 @@
         </div>
     </footer>
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 

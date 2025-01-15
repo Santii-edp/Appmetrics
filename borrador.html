@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <script>
+      let currentPage = 1;
+      const rowsPerPage = 12;
+      const maxPagesToShow = 10;
+      let allData = [];
+      let filteredData = []; // Agrega esta variable para almacenar los datos filtrados
+    
+      function loadData() {
+          google.script.run
+              .withSuccessHandler(processData)
+              .withFailureHandler(handleError)
+              .getData();
+      }
+
+      document.getElementById('searchButton').addEventListener('click', performSearch);
+
+      function performSearch() {
+          const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+          // Filtramos los datos según la búsqueda
+          filteredData = allData.filter(row => {
+              return row.some(cell => String(cell || '').toLowerCase().includes(searchInput));
+          });
+      
+          // Actualizamos la paginación y mostramos la primera página de los resultados filtrados
+          updatePagination(filteredData);
+          displayPage(1, filteredData); // Aseguramos que estamos usando los datos filtrados
+      }
+
+      function updatePagination(data) {
+          const totalPages = Math.ceil(data.length / rowsPerPage);
+          const pagination = document.getElementById('pagination');
+          pagination.innerHTML = '';
+    
+          // Botón Anterior
+          pagination.innerHTML += `
+              <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                  <a class="page-link" href="#" onclick="displayPage(${currentPage - 1}, filteredData); return false;">Anterior</a>
+              </li>
+          `;
+          
+          const startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+          const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+          
+          // Páginas numeradas
+          for (let i = startPage; i <= endPage; i++) {
+              pagination.innerHTML += `
+                  <li class="page-item ${currentPage === i ? 'active' : ''}">
+                      <a class="page-link" href="#" onclick="displayPage(${i}, filteredData); return false;">${i}</a>
+                  </li>
+              `;
+          }
+      
+          // Botón Siguiente
+          pagination.innerHTML += `
+              <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                  <a class="page-link" href="#" onclick="displayPage(${currentPage + 1}, filteredData); return false;">Siguiente</a>
+              </li>
+          `;
+      }
+
+      function displayPage(pageNumber, data = filteredData) {
+          currentPage = pageNumber;
+          const tableBody = document.getElementById('tableBody');
+          tableBody.innerHTML = '';
+    
+          const start = (pageNumber - 1) * rowsPerPage;
+          const end = Math.min(start + rowsPerPage, data.length);
+    
+          for (let i = start; i < end; i++) {
+              const row = data[i];
+              const tr = document.createElement('tr');
+        
+              tr.innerHTML = `
+                  <td>${row[7] || ''}</td>
+                  <td>${row[1] || ''}</td>
+                  <td>${row[0] || ''}</td>
+                  <td>${row[2] || ''}</td>
+                  <td>
+                      <span class="badge ${isActualizado(row[5]) ? 'bg-success' : 'bg-danger'}">
+                          ${isActualizado(row[5]) ? 'Actualizado' : 'Desactualizado'}
+                      </span>
+                  </td>
+                  <td>${row[5] || ''}</td>
+                  <td>
+                      <a href="${row[4] || '#'}" target="_blank" class="btn btn-sm btn-outline-primary">
+                          <i class="bi bi-eye"></i>
+                      </a>
+                      <button class="btn btn-sm btn-outline-secondary">
+                          <i class="bx bx-archive-in"></i>
+                      </button>
+                  </td>
+              `;
+              
+              tableBody.appendChild(tr);
+          }
+      
+          updatePagination(data);
+      }
+
+      function isActualizado(fecha) {
+          if (!fecha) return false;
+          const fechaActualizacion = new Date(fecha);
+          const ahora = new Date();
+          const diferenciaMeses = (ahora - fechaActualizacion) / (1000 * 60 * 60 * 24 * 30);
+          return diferenciaMeses <= 36; // Ajustar el rango de meses aquí
+      }
+
+      function processData(sections) {
+          allData = [];
+          sections.forEach(section => {
+              section.data.forEach((row, index) => {
+                  if (index === 0) return; // Saltar la fila de encabezados
+                  allData.push(row);
+              });
+          });
+          filteredData = [...allData]; // Iniciar filteredData con los datos completos
+          updatePagination(filteredData);
+          displayPage(1, filteredData);
+      }
+
+      function handleError(error) {
+          console.error('Error:', error);
+          document.getElementById('tableBody').innerHTML = `
+              <tr>
+                  <td colspan="7" class="text-center text-secondary">
+                      Error al cargar los datos: ${error.toString()}
+                  </td>
+              </tr>
+          `;
+      }
+
+      window.onload = loadData;
+    </script>
+  </body>
+</html>

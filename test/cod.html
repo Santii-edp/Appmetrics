@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla Dinámica</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tabla Dinámica</h1>
+  <button id="refresh">Actualizar Tabla</button>
+  <table id="dynamicTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Cargo</th>
+        <th>Gerencia</th>
+        <th>Estado</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Los datos se cargarán dinámicamente aquí -->
+    </tbody>
+  </table>
+
+  <script>
+    const scriptURL = 'https://script.google.com/a/macros/segurosbolivar.com/s/AKfycby_-lFenR4r8mjmc2LE3bH237HMDdWerLgLJT7aJ1vNJwx-9BcKSBafQye5fvjRVOY/exec'; // Reemplaza con tu URL publicada
+
+    // Función para cargar los datos desde el Apps Script
+    async function loadTableData() {
+      try {
+        const response = await fetch(scriptURL);
+        const data = await response.json();
+
+        const tableBody = document.getElementById('dynamicTable').querySelector('tbody');
+        tableBody.innerHTML = ''; // Limpia la tabla antes de agregar los datos
+
+        data.forEach(row => {
+          const tableRow = `
+            <tr>
+              <td>${row.id}</td>
+              <td>${row.nombre}</td>
+              <td>${row.cargo}</td>
+              <td>${row.gerencia}</td>
+              <td>${row.estado}</td>
+              <td>${row.fecha}</td>
+            </tr>
+          `;
+          tableBody.insertAdjacentHTML('beforeend', tableRow);
+        });
+      } catch (error) {
+        console.error('Error al cargar los datos:', error);
+      }
+    }
+
+    // Cargar los datos al iniciar
+    loadTableData();
+
+    // Botón para actualizar la tabla
+    document.getElementById('refresh').addEventListener('click', loadTableData);
+  </script>
+</body>
+</html>
